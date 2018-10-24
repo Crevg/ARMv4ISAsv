@@ -1,5 +1,5 @@
 module processor #(parameter bus = 32) 
-(input logic clk, rst, input logic [1:0] inst, memdatain, output logic [bus-1:0] pc_out, memdataout, memdir, output logic MRE, MWE);
+(input logic clk, rst, input logic [bus-1:0] inst, memdatain, output logic [bus-1:0] pc_out, memdataout, memdir, output logic MRE, MWE);
 
 	
 	//instruction data
@@ -28,23 +28,23 @@ module processor #(parameter bus = 32)
 	
 	assign cond = inst[31:28];
 	assign op = inst[27:26];
-	assign funct = inst[25:20]
-	assign rn = inst[19:16]
-	assign rd = inst[15:12]
-	assign imm24 = inst[23:0]
-	assign imm12 = inst[11:0]
+	assign funct = inst[25:20];
+	assign rn = inst[19:16];
+	assign rd = inst[15:12];
+	assign imm24 = inst[23:0];
+	assign imm12 = inst[11:0];
 	
 	//assign src2 data processing types
 	
-	assign rot = inst[11:8]
-	assign imm8 = inst[7:0]
+	assign rot = inst[11:8];
+	assign imm8 = inst[7:0];
 	
 	//assign register shift
-	assign shamt5 = inst[11:7]
-	assign sh = inst[6:5]
-	assign rm = inst[3:0]
-	assign rs = inst[11:8]
-	assign shift_type = inst[4]
+	assign shamt5 = inst[11:7];
+	assign sh = inst[6:5];
+	assign rm = inst[3:0];
+	assign rs = inst[11:8];
+	assign shift_type = inst[4];
 	
 	
 	logic [bus-1:0] pcdir;
