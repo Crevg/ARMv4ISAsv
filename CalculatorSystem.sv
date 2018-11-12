@@ -1,5 +1,5 @@
  
-module FroggerSystem #(bus = 32, memsize = 256) (input logic clk, reset, input logic [bus-1:0] keyboard_data, output logic [7:0] R,G,B, output logic o_hs, o_vs, o_sync, o_blank, o_clk);
+module CalculatorSystem #(bus = 32, memsize = 256) (input logic clk, reset, input logic [bus-1:0] keyboard_data, output logic [7:0] R,G,B, output logic o_hs, o_vs, o_sync, o_blank, o_clk);
 
 	logic [bus-1:0]pcdir,instruction,memdatain,memdataout,memdataoutVGA,memdir,memdirVGA;
 	logic MRE,MWE;
