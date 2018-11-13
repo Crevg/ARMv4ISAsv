@@ -1,15 +1,16 @@
 `timescale 1ns / 1ps
 
 
-module Keiboard(
+module Keyboard(
 	input logic CLK,	
    input logic PS2_CLK,	
    input logic PS2_DATA,
-   output logic  [3:0] LED,
-	output logic [6:0] Seven
+   output logic  [4:0] LED,
+	output logic [6:0] Seven,
+	output logic wroteit
    );
 	
-	sevenSegments SevenSeg(LED, Seven);
+	sevenSegments SevenSeg(LED[3:0], Seven);
 	logic [7:0] NUMBER0 = 8'h70;
 	logic [7:0] NUMBER1 = 8'h69;
 	logic [7:0] NUMBER2 = 8'h72;
@@ -25,12 +26,6 @@ module Keiboard(
 	logic [7:0] MULTI = 8'h7C;
 	logic [7:0] DIV = 8'h4A;
 	logic [7:0] ENTER = 8'h5A;
-	
-	logic  [7:0] ARROW_UP = 8'h75;	
-	logic  [7:0] ARROW_DOWN = 8'h72;
-	logic  [7:0] ARROW_LEFT = 8'h6B;
-	logic  [7:0] ARROW_RIGHT = 8'h74;
-	logic  [7:0] SPACE = 8'h29;
 	logic  [7:0] ESCAPE = 8'h76;
 
 	logic  read;				//this is 1 if still waits to receive more bits 
@@ -127,38 +122,74 @@ module Keiboard(
 	end
 	
 	always @(posedge CLK) begin
-		if (CODEWORD == NUMBER0)				
+		if (CODEWORD == NUMBER0 & wroteit == 0) begin				
 			LED <= 0;					
-		else if (CODEWORD == NUMBER1)	
+			wroteit <= 1;
+			end
+		else if (CODEWORD == NUMBER1 & wroteit == 0) begin
 			LED <= 1;					
-		else if (CODEWORD == NUMBER2)			
-			LED <= 2;
-		else if (CODEWORD == NUMBER3)			
-			LED <= 3;
-		else if (CODEWORD == NUMBER4)			
-			LED <= 4;
-		else if (CODEWORD == NUMBER5)			
-			LED <= 5;
-		else if (CODEWORD == NUMBER6)			
-			LED <= 6;
-		else if (CODEWORD == NUMBER7)			
-			LED <= 7;
-		else if (CODEWORD == NUMBER8)			
-			LED <= 8;
-		else if (CODEWORD == NUMBER9)			
-			LED <= 9;
-		else if (CODEWORD == SUMA)
-			LED <= 10;	
-		else if (CODEWORD == RESTA)
-			LED <= 11;	
-		else if (CODEWORD == MULTI)
-			LED <= 12;	
-		else if (CODEWORD == DIV)
-			LED <= 13;	
-		else if (CODEWORD == ENTER)
-			LED <= 14;	
-		else if (CODEWORD == ESCAPE)			
-			LED <= 15;
+			wroteit <= 1;
+			end				
+		else if (CODEWORD == NUMBER2 & wroteit == 0) begin
+			LED <= 2;				
+			wroteit <= 1;
+			end
+		else if (CODEWORD == NUMBER3 & wroteit == 0) begin
+			LED <= 3;				
+			wroteit <= 1;
+			end
+		else if (CODEWORD == NUMBER4 & wroteit == 0) begin
+			LED <= 4;				
+			wroteit <= 1;
+			end
+		else if (CODEWORD == NUMBER5 & wroteit == 0) begin
+			LED <= 5;				
+			wroteit <= 1;
+			end
+		else if (CODEWORD == NUMBER6 & wroteit == 0) begin
+			LED <= 6;				
+			wroteit <= 1;
+			end
+		else if (CODEWORD == NUMBER7 & wroteit == 0) begin
+			LED <= 7;				
+			wroteit <= 1;
+			end
+		else if (CODEWORD == NUMBER8 & wroteit == 0) begin
+			LED <= 8;				
+			wroteit <= 1;
+			end
+		else if (CODEWORD == NUMBER9 & wroteit == 0) begin	
+			LED <= 9;				
+			wroteit <= 1;
+			end
+		else if (CODEWORD == SUMA & wroteit == 0) begin
+			LED <= 10;					
+			wroteit <= 1;
+			end
+		else if (CODEWORD == RESTA & wroteit == 0) begin
+			LED <= 11;					
+			wroteit <= 1;
+			end
+		else if (CODEWORD == MULTI & wroteit == 0) begin
+			LED <= 12;					
+			wroteit <= 1;
+			end
+		else if (CODEWORD == DIV & wroteit == 0) begin
+			LED <= 13;					
+			wroteit <= 1;
+			end
+		else if (CODEWORD == ENTER & wroteit == 0) begin
+			LED <= 14;					
+			wroteit <= 1;
+			end
+		else if (CODEWORD == ESCAPE & wroteit == 0) begin
+			LED <= 15;				
+			wroteit <= 1;
+			end
+		else begin 
+			LED <= 16;
+			wroteit <= 0;
+			end
 	end
 
 endmodule
