@@ -8,6 +8,7 @@ module Keiboard(
    output logic  [3:0] LED,
 	output logic [6:0] Seven
    );
+	
 	sevenSegments SevenSeg(LED, Seven);
 	logic [7:0] NUMBER0 = 8'h70;
 	logic [7:0] NUMBER1 = 8'h69;
@@ -54,9 +55,9 @@ module Keiboard(
 		read = 0;
 		count_reading = 0;
 	end
-
+	
 	always @(posedge CLK) begin				
-		if (DOWNCOUNTER < 49) begin			
+		if (DOWNCOUNTER < 249) begin			
 			DOWNCOUNTER <= DOWNCOUNTER + 1;
 			TRIGGER <= 0;
 		end
@@ -126,10 +127,9 @@ module Keiboard(
 	end
 	
 	always @(posedge CLK) begin
-
 		if (CODEWORD == NUMBER0)				
 			LED <= 0;					
-		else if (CODEWORD == NUMBER1)			
+		else if (CODEWORD == NUMBER1)	
 			LED <= 1;					
 		else if (CODEWORD == NUMBER2)			
 			LED <= 2;
