@@ -1,38 +1,31 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: Montvydas Klumbys	
-// 
-// Create Date:    
-// Design Name: 
-// Module Name:    Keyboard 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//	A module which is used to receive the DATA from PS2 type keyboard and translate that data into sensible codeword.
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+
 
 module Keiboard(
-	input logic CLK,	//board clock
-   input logic PS2_CLK,	//keyboard clock and data signals
+	input logic CLK,	
+   input logic PS2_CLK,	
    input logic PS2_DATA,
-//	output reg scan_err,			//These can be used if the Keyboard module is used within a another module
-//	output reg [10:0] scan_code,
-//	output reg [3:0]COUNT,
-//	output reg TRIG_ARR,
-//	output reg [7:0]CODEWORD,
-   output logic  [7:0] LED	//8 LEDs
+   output logic  [3:0] LED,
+	output logic [6:0] Seven
    );
-
-	logic  [7:0] ARROW_UP = 8'h75;	//codes for arrows
+	sevenSegments SevenSeg(LED, Seven);
+	logic [7:0] NUMBER0 = 8'h70;
+	logic [7:0] NUMBER1 = 8'h69;
+	logic [7:0] NUMBER2 = 8'h72;
+	logic [7:0] NUMBER3 = 8'h7A;
+	logic [7:0] NUMBER4 = 8'h6B;
+	logic [7:0] NUMBER5 = 8'h73;
+	logic [7:0] NUMBER6 = 8'h74;
+	logic [7:0] NUMBER7 = 8'h6C;
+	logic [7:0] NUMBER8 = 8'h75;
+	logic [7:0] NUMBER9 = 8'h7D;
+	logic [7:0] SUMA = 8'h79;
+	logic [7:0] RESTA = 8'h7B;
+	logic [7:0] MULTI = 8'h7C;
+	logic [7:0] DIV = 8'h4A;
+	logic [7:0] ENTER = 8'h5A;
+	
+	logic  [7:0] ARROW_UP = 8'h75;	
 	logic  [7:0] ARROW_DOWN = 8'h72;
 	logic  [7:0] ARROW_LEFT = 8'h6B;
 	logic  [7:0] ARROW_RIGHT = 8'h74;
@@ -63,7 +56,7 @@ module Keiboard(
 	end
 
 	always @(posedge CLK) begin				
-		if (DOWNCOUNTER < 249) begin			
+		if (DOWNCOUNTER < 49) begin			
 			DOWNCOUNTER <= DOWNCOUNTER + 1;
 			TRIGGER <= 0;
 		end
@@ -134,19 +127,38 @@ module Keiboard(
 	
 	always @(posedge CLK) begin
 
-		if (CODEWORD == ARROW_UP)				//if the CODEWORD has the same code as the ARROW_UP code
-			LED <= 1;					//count up the LED register to light up LEDs
-		else if (CODEWORD == ARROW_DOWN)			//or if the ARROW_DOWN was pressed, then
-			LED <= 2;					//count down LED register 
-		else if (CODEWORD == ARROW_LEFT)			//or if the ARROW_DOWN was pressed, then
+		if (CODEWORD == NUMBER0)				
+			LED <= 0;					
+		else if (CODEWORD == NUMBER1)			
+			LED <= 1;					
+		else if (CODEWORD == NUMBER2)			
+			LED <= 2;
+		else if (CODEWORD == NUMBER3)			
 			LED <= 3;
-		else if (CODEWORD == ARROW_RIGHT)			//or if the ARROW_DOWN was pressed, then
+		else if (CODEWORD == NUMBER4)			
 			LED <= 4;
-		else if (CODEWORD == SPACE)			//or if the ARROW_DOWN was pressed, then
+		else if (CODEWORD == NUMBER5)			
 			LED <= 5;
-		else if (CODEWORD == ESCAPE)			//or if the ARROW_DOWN was pressed, then
-			LED <= 0;
-
+		else if (CODEWORD == NUMBER6)			
+			LED <= 6;
+		else if (CODEWORD == NUMBER7)			
+			LED <= 7;
+		else if (CODEWORD == NUMBER8)			
+			LED <= 8;
+		else if (CODEWORD == NUMBER9)			
+			LED <= 9;
+		else if (CODEWORD == SUMA)
+			LED <= 10;	
+		else if (CODEWORD == RESTA)
+			LED <= 11;	
+		else if (CODEWORD == MULTI)
+			LED <= 12;	
+		else if (CODEWORD == DIV)
+			LED <= 13;	
+		else if (CODEWORD == ENTER)
+			LED <= 14;	
+		else if (CODEWORD == ESCAPE)			
+			LED <= 15;
 	end
 
 endmodule
