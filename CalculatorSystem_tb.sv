@@ -1,5 +1,5 @@
 
-module FroggerSystem_tb ();
+module CalculatorSystem_tb ();
 	
 	
 	logic clk,o_clk, rst;
@@ -9,7 +9,7 @@ module FroggerSystem_tb ();
 	logic o_hs, o_vs, o_sync, o_blank;
 	
 	logic[31:0] datain,dir;
-	FroggerSystem #(32, 256) _frogger(clk,rst,keyboard_data, R,G,B, o_hs, o_vs, o_sync, o_blank, o_clk);
+	CalculatorSystem #(32, 256) _frogger(clk,rst,keyboard_data, R,G,B, o_hs, o_vs, o_sync, o_blank, o_clk);
 	
 	
 	initial begin
