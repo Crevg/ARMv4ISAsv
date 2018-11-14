@@ -1,6 +1,6 @@
 //4*1024 = 16K of memory
 module DataMemory #(parameter bus = 32, parameter memsize = 1024*4) 
-(input logic [bus-1:0]datain,writedir,readdir,readdir2,output logic [bus-1:0]dataout,dataout2,input clk, clk_vga, MRE,MWE);
+(input logic [bus-1:0]datain,datainkeyboard,writedir,readdir,readdir2,output logic [bus-1:0]dataout,dataout2,input clk, clk_vga, MRE,MWE);
 
 	
 	logic [bus-1:0] my_memory [0:memsize-1];
@@ -26,6 +26,7 @@ module DataMemory #(parameter bus = 32, parameter memsize = 1024*4)
 	if (MWE == 1'b1) begin
 		my_memory[{writedir, 2'd0}] <= datain;
 	end
+	my_memory[{30'd1, 2'd0}] <= datainkeyboard;
 	end
 
 
